@@ -1,3 +1,5 @@
 Dar el curso de git
 Comer
 Laver ropa
+Cenar 
+Dormir
