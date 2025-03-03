@@ -1,3 +1,4 @@
+import { Flag } from '../models/Flag.mjs';
 
 export function index(req, res) {
     const allFlags = [
@@ -14,8 +15,15 @@ export function show(req, res) {
 }
 
 export function store(req, res) {
-    
-    res.json({ message: 'Flags store' });
+    // Validate the request
+    if (!req.body.name) {
+        return res.status(400).json({ message: 'Name is required' });
+    }
+    if (!req.body.value) {
+        return res.status(400).json({ message: 'Value is required' });
+    }
+    const newFlag = new Flag(req.body.name, req.body.value);
+    res.json({ message: 'Flags store', data: newFlag });
 }
 
 
