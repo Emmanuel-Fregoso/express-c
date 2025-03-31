@@ -1,9 +1,0 @@
-{
-    "name": "John Doe",
-    "age": 30,
-    "email": "",
-    "datos-adicionales": {
-        "telefono": "123456789",
-        "direccion": "Calle Falsa 123"
-    }
-}
