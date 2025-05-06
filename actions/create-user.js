@@ -1,5 +1,5 @@
 import { User } from "../models/user.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const createUser = async (username, password) => {
     if (!username || !password) throw new Error('Username and password are required');
