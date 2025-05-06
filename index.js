@@ -19,7 +19,11 @@ app.post('/login', async (req, res) => {
     console.log(process.env.JWT_SECRET)
     try {
         const user = await loginUser(username, password);
-        const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(
+            { id: user.id, username: user.username }
+            , process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
         res.status(200).cookie(
             'access_token',
             token,
@@ -48,15 +52,20 @@ app.post('/logout', (req, res) => {
     res.clearCookie('access_token').send('Logged out successfully');
 });
 
-app.get('/profile', (req, res) => {
+app.use((req, res, next) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(403).send('Unauthorized');
     try {
         const data = jwt.verify(token, process.env.JWT_SECRET);
-        res.status(200).send(data);
+        req.user = data;
+        next();
     } catch (error) {
         res.status(401).send('Invalid token');
     }
+})
+
+app.get('/profile', (req, res) => {
+    res.status(200).send(req.user);
 });
 
 
