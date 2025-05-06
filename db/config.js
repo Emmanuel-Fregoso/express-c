@@ -3,11 +3,15 @@ import pg from 'pg';
 
 console.log(process.env.DB_PASSWORD)
 
-export const db = new Sequelize('postgres','postgres', process.env.DB_PASSWORD,
+export const db = new Sequelize('postgresql://postgres:7ecdz5pjL8KX4YJN@db.srksqeedpoyfcoqamket.supabase.co:5432/postgres',
     {
-        host: 'db.srksqeedpoyfcoqamket.supabase.co',
-        port: 5432,
         dialect: 'postgres',
-        dialectModule: pg
+        dialectModule: pg,
+        dialectOptions: {
+            ssl: {
+                require: true,
+                rejectUnauthorized: false,
+            },
+        },
     }
 );
